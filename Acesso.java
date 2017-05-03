@@ -28,32 +28,10 @@ public class Acesso {
 	
 	public float calcularValor() { 
 		int quantidadeHoras = horaSaida - horaEntrada; 
-		int quantidadeMinutos; 
 		
-		if (horaSaida == horaEntrada)
-			quantidadeMinutos = minutosSaida - minutosEntrada;
-		else if (horaSaida > horaEntrada && minutosEntrada == minutosSaida){
-			quantidadeMinutos = 0;
-			quantidadeHoras = horaSaida - horaEntrada;
-		}
-		else if (horaSaida > horaEntrada && minutosEntrada > minutosSaida) 
-			quantidadeMinutos = minutosSaida - minutosEntrada;
-		else if (horaSaida > horaEntrada && minutosSaida < minutosEntrada){
-			quantidadeMinutos = minutosSaida + (60 - minutosEntrada);
-			quantidadeHoras = horaSaida - horaEntrada - 1;
-		}
-		else {
-			quantidadeHoras = 0;
-			quantidadeMinutos = 0;
-		}
+		CalcularValor calcularValor = new CalcularValor(this, quantidadeHoras);
 		
-		float valorHoras = quantidadeHoras * VALOR_HORA;
-		float valorFracaoDeMinutos = (float) Math.ceil(quantidadeMinutos / 15.0) * VALOR_FRACAO;
-		
-		if (quantidadeHoras >=9)
-			return VALOR_DIARIA;
-		else 
-			return valorHoras + valorFracaoDeMinutos;
+		return calcularValor.computar();
 	}
 	
 	
