@@ -14,6 +14,18 @@ public class CalcularValor {
 		int minutosSaida = acesso.minutosSaida;
 		int minutosEntrada = acesso.minutosEntrada;
 		
+		calcularTempoPassado(horaSaida, horaEntrada, minutosSaida, minutosEntrada);
+		
+		float valorHoras = quantidadeHoras * Acesso.VALOR_HORA;
+		float valorFracaoDeMinutos = (float) Math.ceil(quantidadeMinutos / 15.0) * Acesso.VALOR_FRACAO;
+		
+		if (quantidadeHoras >= 9)
+			return Acesso.VALOR_DIARIA;
+		else 
+			return valorHoras + valorFracaoDeMinutos;
+	}
+
+	private void calcularTempoPassado(int horaSaida, int horaEntrada, int minutosSaida, int minutosEntrada) {
 		if (horaSaida == horaEntrada)
 			quantidadeMinutos = minutosSaida - minutosEntrada;
 		else if (horaSaida > horaEntrada && minutosEntrada == minutosSaida){
@@ -30,13 +42,5 @@ public class CalcularValor {
 			quantidadeHoras = 0;
 			quantidadeMinutos = 0;
 		}
-		
-		float valorHoras = quantidadeHoras * Acesso.VALOR_HORA;
-		float valorFracaoDeMinutos = (float) Math.ceil(quantidadeMinutos / 15.0) * Acesso.VALOR_FRACAO;
-		
-		if (quantidadeHoras >= 9)
-			return Acesso.VALOR_DIARIA;
-		else 
-			return valorHoras + valorFracaoDeMinutos;
 	}
 }
